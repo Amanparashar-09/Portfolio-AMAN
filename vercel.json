@@ -1,0 +1,36 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "outputDirectory": ".output/public",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/dist/(.*)",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
